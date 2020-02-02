@@ -1,2 +1,2 @@
-require('./ad')
-require('./user')
+require("./ad");
+require("./user");

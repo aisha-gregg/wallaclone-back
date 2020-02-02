@@ -1,9 +1,9 @@
-const { findAll } = require('../repositories/ads-repository')
+const { findAll } = require("../repositories/ads-repository");
 
 async function getAds(req, res, next) {
-    res.send(await findAll())
+  res.send(await findAll());
 }
 
 module.exports = {
-    getAds
-}
+  getAds
+};

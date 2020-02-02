@@ -1,16 +1,15 @@
-require('./db/mongodb')
-require('./models')
+require("./db/mongodb");
+require("./models");
 
-const bodyParser = require('body-parser')
-const express = require('express')
-const app = express()
-require('./routes')(app)
+const express = require("express");
+const cors = require("cors");
+const app = express();
+app.use(cors());
+app.use(express.json());
+require("./routes")(app);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 5000);
 
 module.exports = {
-    app
-}
+  app
+};
