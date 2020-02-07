@@ -3,6 +3,7 @@ const user = mongoose.model("user");
 const hash = require("hash.js");
 const { UserNotFoundError } = require("./user-not-found-error");
 const { PasswordNotValidError } = require("./password-not-valid-error");
+const jwt = require("jsonwebtoken");
 
 async function login(email, password) {
   const hashPassword = hash
@@ -19,7 +20,8 @@ async function login(email, password) {
     throw new PasswordNotValidError();
   }
 
-  return true;
+  const token = jwt.sign({ _id: foundUser._id }, "djghhhhuuwiwuewieuwieuriwu");
+  return token;
 }
 
 module.exports = {

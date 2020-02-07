@@ -14,9 +14,7 @@ const url = `mongodb://localhost/wallaclone`;
 
 const options = {
   useNewUrlParser: true,
-  reconnectTries: Number.MAX_VALUE,
-  reconnectInterval: 500,
-  connectTimeoutMS: 10000
+  useUnifiedTopology: true
 };
 
 mongoose.connect(url, options);

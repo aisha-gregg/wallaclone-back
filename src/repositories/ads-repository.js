@@ -5,6 +5,11 @@ async function findAll() {
   return ad.find({});
 }
 
+async function createAd(newAd) {
+  ad.create(newAd);
+}
+
 module.exports = {
-  findAll
+  findAll,
+  createAd
 };

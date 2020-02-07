@@ -4,17 +4,17 @@ const {
   PasswordNotValidError
 } = require("../repositories/password-not-valid-error");
 
-async function loginUser(req, res, next) {
+async function loginUser(req, res) {
   try {
-    const isLoggedIn = await login(req.body.email, req.body.password);
-    res.send(isLoggedIn);
+    const token = await login(req.body.email, req.body.password);
+    res.send({ token });
   } catch (error) {
     if (error instanceof UserNotFoundError) {
       return res.status(404).send({ error: error.message });
     } else if (error instanceof PasswordNotValidError) {
       return res.status(401).send({ error: error.message });
     } else {
-      return res.status(500).send();
+      return res.status(500).send({ error: error.message });
     }
   }
 }
