@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const ad = mongoose.model("ad");
 
-async function findAll() {
-  return ad.find({}).limit(25);
+async function findAll({ tags } = { tags: [] }) {
+  return ad.find({ tags }).limit(25);
 }
 
 async function createAd(newAd) {
