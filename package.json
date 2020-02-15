@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env ENVIRONMENT=pro node ./src/app.js",
-    "dev": "cross-env ENVIRONMENT=local nodemon ./src/app.js",
-    "dev:debug": "cross-env ENVIRONMENT=local nodemon --inspect ./src/app.js"
+    "start": "cross-env ENVIRONMENT=local npm run build && node ./src/app.js",
+    "dev": "cross-env ENVIRONMENT=local nodemon --exec babel-node src/app.js",
+    "dev:debug": "cross-env ENVIRONMENT=local npm run build && nodemon --inspect ./build/app.js",
+    "build": "babel ./src/app.js -d build"
   },
   "keywords": [],
   "author": "Aisha Gregg",
@@ -21,6 +22,11 @@
     "mongoose": "5.8.10"
   },
   "devDependencies": {
+    "@babel/core": "7.8.4",
+    "@babel/node": "7.8.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "7.8.3",
+    "@babel/preset-env": "7.8.4",
     "nodemon": "2.0.2"
   }
 }
