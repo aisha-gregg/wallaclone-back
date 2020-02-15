@@ -23,11 +23,16 @@ async function findAll({ tags, minPrice, maxPrice }) {
   });
 }
 
+async function findOne(id) {
+  return ad.findById(id).exec();
+}
+
 async function createAd(newAd) {
   ad.create(newAd);
 }
 
 module.exports = {
   findAll,
+  findOne,
   createAd
 };

@@ -1,5 +1,18 @@
 const express = require("express");
-const { findAll, createAd } = require("../repositories/ads-repository");
+const {
+  findAll,
+  createAd,
+  findOne
+} = require("../repositories/ads-repository");
+
+/**
+ * @param {express.Request} req
+ * @param {Express.Response} res
+ */
+async function getAd(req, res) {
+  const { params } = req;
+  res.send(await findOne(params.id));
+}
 
 /**
  * @param {express.Request} req
@@ -35,5 +48,6 @@ async function postAds(req, res) {
 
 module.exports = {
   getAds,
-  postAds
+  postAds,
+  getAd
 };
