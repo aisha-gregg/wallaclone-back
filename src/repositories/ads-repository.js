@@ -15,8 +15,12 @@ async function findAll({ tags, minPrice, maxPrice }) {
   if (maxPrice !== undefined) {
     query.where("price").lte(maxPrice);
   }
-
-  return query.exec();
+  const result = await query.exec();
+  return result.sort((current, previous) => {
+    const currentDate = current._id.getTimestamp();
+    const previousDate = previous._id.getTimestamp();
+    return previousDate - currentDate;
+  });
 }
 
 async function createAd(newAd) {
