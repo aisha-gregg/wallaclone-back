@@ -7,8 +7,20 @@ const { findAll, createAd } = require("../repositories/ads-repository");
  */
 async function getAds(req, res) {
   const { query } = req;
-  const tags = query.tags?.split(",") ?? [];
-  res.send(await findAll({ tags }));
+  const tags = query.tags?.split(",");
+  const minPrice = getPrice(query.minPrice);
+  const maxPrice = getPrice(query.maxPrice);
+  res.send(await findAll({ tags, minPrice, maxPrice }));
+}
+/**
+ * @param {string|undefine} price
+ */
+function getPrice(price) {
+  if (price === undefined) {
+    return undefined;
+  }
+
+  return Number(price);
 }
 
 /**
