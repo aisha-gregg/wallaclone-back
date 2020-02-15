@@ -20,7 +20,7 @@ async function login(email, password) {
     throw new PasswordNotValidError();
   }
 
-  const token = jwt.sign({ _id: foundUser._id }, "djghhhhuuwiwuewieuwieuriwu");
+  const token = jwt.sign({ _id: foundUser._id }, process.env.JWT_KEY);
   return token;
 }
 

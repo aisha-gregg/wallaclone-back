@@ -26,7 +26,7 @@ async function getAds(req, res) {
   res.send(await findAll({ tags, minPrice, maxPrice }));
 }
 /**
- * @param {string|undefine} price
+ * @param {string|undefined} price
  */
 function getPrice(price) {
   if (price === undefined) {
@@ -41,13 +41,14 @@ function getPrice(price) {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-async function postAds(req, res) {
+async function postAd(req, res) {
   const body = req.body;
-  res.send(await createAd(body));
+  const userId = req.user._id;
+  res.send(await createAd({ ...body, userId }));
 }
 
 module.exports = {
   getAds,
-  postAds,
+  postAd,
   getAd
 };
