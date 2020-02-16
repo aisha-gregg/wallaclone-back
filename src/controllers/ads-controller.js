@@ -23,7 +23,8 @@ async function getAds(req, res) {
   const tags = query.tags?.split(",");
   const minPrice = getPrice(query.minPrice);
   const maxPrice = getPrice(query.maxPrice);
-  res.send(await findAll({ tags, minPrice, maxPrice }));
+  const name = query.name;
+  res.send(await findAll({ tags, minPrice, maxPrice, name }));
 }
 /**
  * @param {string|undefined} price
@@ -37,7 +38,6 @@ function getPrice(price) {
 }
 
 /**
- *
  * @param {express.Request} req
  * @param {express.Response} res
  */

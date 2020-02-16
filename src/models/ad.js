@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 const adSchema = new mongoose.Schema({
-  name: { type: String, index: true },
-  description: { type: String, index: true },
-  sell: { type: Boolean, index: true },
-  price: { type: Number, index: true },
+  name: { type: String },
+  description: { type: String },
+  sell: { type: Boolean },
+  price: { type: Number },
   image: String,
-  tags: { type: [String], index: true },
-  userId: { type: String, index: true }
+  tags: { type: [String] },
+  userId: { type: String }
 });
-
+adSchema.index({ name: "text" });
 mongoose.model("ad", adSchema);

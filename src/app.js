@@ -16,8 +16,8 @@ app.use(express.json({ limit: "10mb" }));
 app.use(
   jwt({ secret: process.env.JWT_KEY }).unless(req => {
     return (
-      (req.originalUrl === "/api/ads" && req.method === "GET") ||
-      req.originalUrl === "/api/users"
+      (req.originalUrl.startsWith("/api/ads") && req.method === "GET") ||
+      req.originalUrl.startsWith("/api/users")
     );
   })
 );

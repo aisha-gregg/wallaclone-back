@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 const ad = mongoose.model("ad");
 
-async function findAll({ tags, minPrice, maxPrice }) {
+async function findAll({ tags, minPrice, maxPrice, name }) {
   const query = ad.find().limit(25);
+
+  if (name !== undefined) {
+    query.where("name").find({ $text: { $search: name } });
+  }
 
   if (tags !== undefined) {
     query.where("tags").find({ tags });

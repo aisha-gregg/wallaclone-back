@@ -1,9 +1,14 @@
-const { login } = require("../repositories/users-repository");
+const { login, findOne } = require("../repositories/users-repository");
+const express = require("express");
 const { UserNotFoundError } = require("../repositories/user-not-found-error");
 const {
   PasswordNotValidError
 } = require("../repositories/password-not-valid-error");
 
+/**
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 async function loginUser(req, res) {
   try {
     const token = await login(req.body.email, req.body.password);
@@ -19,6 +24,16 @@ async function loginUser(req, res) {
   }
 }
 
+/**
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
+async function getUser(req, res) {
+  const { password, ...rest } = (await findOne(req.params.id)).toJSON();
+  return res.send({ ...rest });
+}
+
 module.exports = {
-  loginUser
+  loginUser,
+  getUser
 };

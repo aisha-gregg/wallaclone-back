@@ -24,6 +24,14 @@ async function login(email, password) {
   return token;
 }
 
+/**
+ * @param {string} id
+ */
+async function findOne(id) {
+  return user.findById(id);
+}
+
 module.exports = {
-  login
+  login,
+  findOne
 };
