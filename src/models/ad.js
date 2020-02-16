@@ -7,7 +7,8 @@ const adSchema = new mongoose.Schema({
   price: { type: Number },
   image: String,
   tags: { type: [String] },
-  userId: { type: String }
+  userId: { type: String },
+  isSold: { type: Boolean }
 });
 adSchema.index({ name: "text" });
 mongoose.model("ad", adSchema);

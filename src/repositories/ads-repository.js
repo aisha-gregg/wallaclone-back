@@ -35,8 +35,13 @@ async function createAd(newAd) {
   ad.create(newAd);
 }
 
+async function updateAd(id, updatedAd) {
+  ad.updateOne({ _id: id }, updatedAd).exec();
+}
+
 module.exports = {
   findAll,
   findOne,
-  createAd
+  createAd,
+  updateAd
 };

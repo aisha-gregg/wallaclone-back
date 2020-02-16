@@ -2,7 +2,8 @@ const express = require("express");
 const {
   findAll,
   createAd,
-  findOne
+  findOne,
+  updateAd
 } = require("../repositories/ads-repository");
 
 /**
@@ -47,8 +48,20 @@ async function postAd(req, res) {
   res.send(await createAd({ ...body, userId }));
 }
 
+/**
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
+async function putAd(req, res) {
+  const body = req.body;
+  const adId = req.params.id;
+  await updateAd(adId, body);
+  res.send({ id: adId });
+}
+
 module.exports = {
   getAds,
   postAd,
-  getAd
+  getAd,
+  putAd
 };

@@ -28,6 +28,10 @@ app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
     res.status(401).send();
   }
+
+  console.error(err);
+
+  res.status(500).send();
 });
 
 const listener = app.listen(process.env.PORT || 5000, () => {
