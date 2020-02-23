@@ -7,7 +7,7 @@
     "start": "cross-env ENVIRONMENT=local npm run build && node ./src/app.js",
     "dev": "cross-env ENVIRONMENT=local nodemon --exec babel-node src/app.js",
     "dev:debug": "cross-env ENVIRONMENT=local npm run build && nodemon --inspect ./build/app.js",
-    "build": "babel ./src/app.js -d build"
+    "build": "babel-node ./src/app.js -d build"
   },
   "keywords": [],
   "author": "Aisha Gregg",

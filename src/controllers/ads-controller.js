@@ -25,8 +25,12 @@ async function getAds(req, res) {
   const tags = query.tags?.split(",");
   const minPrice = getPrice(query.minPrice);
   const maxPrice = getPrice(query.maxPrice);
+  const sortByDate = query.sortByDate;
+  const ownerId = query.ownerId;
   const name = query.name;
-  res.send(await findAll({ tags, minPrice, maxPrice, name }));
+  res.send(
+    await findAll({ tags, minPrice, maxPrice, name, sortByDate, ownerId })
+  );
 }
 
 /**

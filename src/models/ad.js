@@ -12,7 +12,7 @@ const adSchema = new mongoose.Schema({
 });
 adSchema.set("toObject", { virtuals: true });
 adSchema.set("toJSON", { virtuals: true });
-adSchema.index({ name: "text" });
+adSchema.index({ name: "text", userId: "text" });
 adSchema.virtual("url").get(function() {
   return `${encodeURIComponent(
     this.name.replace(/ /g, "-").toLowerCase()

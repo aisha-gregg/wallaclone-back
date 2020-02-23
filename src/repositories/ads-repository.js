@@ -1,11 +1,22 @@
 const mongoose = require("mongoose");
 const ad = mongoose.model("ad");
 
-async function findAll({ tags, minPrice, maxPrice, name }) {
+async function findAll({
+  tags,
+  minPrice,
+  maxPrice,
+  name,
+  sortByDate,
+  ownerId
+}) {
   const query = ad.find().limit(25);
 
   if (name !== undefined) {
-    query.where("name").find({ $text: { $search: name } });
+    query.where("name").find({ name: { $regex: name, $options: "i" } });
+  }
+
+  if (ownerId !== undefined) {
+    query.where("userId").equals(ownerId);
   }
 
   if (tags !== undefined) {
@@ -23,7 +34,13 @@ async function findAll({ tags, minPrice, maxPrice, name }) {
   const sortedResult = result.sort((current, previous) => {
     const currentDate = current._id.getTimestamp();
     const previousDate = previous._id.getTimestamp();
-    return previousDate - currentDate;
+    if (sortByDate === "oldest") {
+      return currentDate - previousDate;
+    } else if (sortByDate === "most-recent") {
+      return previousDate - currentDate;
+    } else {
+      return previousDate - currentDate;
+    }
   });
 
   const resultsWithDate = sortedResult
