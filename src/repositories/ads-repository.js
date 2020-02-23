@@ -52,9 +52,14 @@ async function updateAd(id, updatedAd) {
   ad.updateOne({ _id: id }, updatedAd).exec();
 }
 
+async function deleteOne(id) {
+  ad.deleteOne({ _id: id }).exec();
+}
+
 module.exports = {
   findAll,
   findOne,
   createAd,
-  updateAd
+  updateAd,
+  deleteOne
 };

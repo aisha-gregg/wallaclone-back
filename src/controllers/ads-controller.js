@@ -3,7 +3,8 @@ const {
   findAll,
   createAd,
   findOne,
-  updateAd
+  updateAd,
+  deleteOne
 } = require("../repositories/ads-repository");
 
 /**
@@ -60,16 +61,34 @@ async function putAd(req, res) {
   const ad = await findOne(adId);
 
   if (ad.userId !== userId) {
-    return res.status(401).send();
+    return res.sendStatus(401);
   }
 
   await updateAd(adId, body);
   return res.send({ id: adId });
 }
 
+/**
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
+async function deleteAd(req, res) {
+  const adId = req.params.id;
+  const userId = req.user._id;
+  const ad = await findOne(adId);
+
+  if (ad.userId !== userId) {
+    return res.status(401).send();
+  }
+
+  await deleteOne(adId);
+  return res.send(204);
+}
+
 module.exports = {
   getAds,
   postAd,
   getAd,
-  putAd
+  putAd,
+  deleteAd
 };
