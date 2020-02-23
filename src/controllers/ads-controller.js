@@ -56,8 +56,15 @@ async function postAd(req, res) {
 async function putAd(req, res) {
   const body = req.body;
   const adId = req.params.id;
+  const userId = req.user._id;
+  const ad = await findOne(adId);
+
+  if (ad.userId !== userId) {
+    return res.status(401).send();
+  }
+
   await updateAd(adId, body);
-  res.send({ id: adId });
+  return res.send({ id: adId });
 }
 
 module.exports = {
