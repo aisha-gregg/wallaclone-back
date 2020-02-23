@@ -24,14 +24,20 @@ async function login(email, password) {
   return { token, id: foundUser._id };
 }
 
+async function updateOne(id, newUser) {
+  const response = await user.findOneAndUpdate({ _id: id }, newUser).exec();
+  return response.toJSON()._id;
+}
+
 /**
  * @param {string} id
  */
 async function findOne(id) {
-  return user.findById(id);
+  return user.findById(id).exec();
 }
 
 module.exports = {
   login,
-  findOne
+  findOne,
+  updateOne
 };

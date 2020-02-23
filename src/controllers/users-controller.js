@@ -1,4 +1,8 @@
-const { login, findOne } = require("../repositories/users-repository");
+const {
+  login,
+  findOne,
+  updateOne
+} = require("../repositories/users-repository");
 const express = require("express");
 const { UserNotFoundError } = require("../repositories/user-not-found-error");
 const {
@@ -28,6 +32,15 @@ async function loginUser(req, res) {
  * @param {express.Request} req
  * @param {express.Response} res
  */
+async function updateUser(req, res) {
+  const id = await updateOne(req.params.id, req.body);
+  return res.send({ id });
+}
+
+/**
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 async function getUser(req, res) {
   const { password, ...rest } = (await findOne(req.params.id)).toJSON();
   return res.send({ ...rest });
@@ -35,5 +48,6 @@ async function getUser(req, res) {
 
 module.exports = {
   loginUser,
-  getUser
+  getUser,
+  updateUser
 };
