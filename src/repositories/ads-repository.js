@@ -20,15 +20,28 @@ async function findAll({ tags, minPrice, maxPrice, name }) {
     query.where("price").lte(maxPrice);
   }
   const result = await query.exec();
-  return result.sort((current, previous) => {
+  const sortedResult = result.sort((current, previous) => {
     const currentDate = current._id.getTimestamp();
     const previousDate = previous._id.getTimestamp();
     return previousDate - currentDate;
   });
+
+  const resultsWithDate = sortedResult
+    .map(ad => ad.toJSON())
+    .map(ad => ({
+      ...ad,
+      date: ad._id.getTimestamp()
+    }));
+  return resultsWithDate;
 }
 
 async function findOne(id) {
-  return ad.findById(id).exec();
+  const foundAd = await ad.findById(id).exec();
+  const parsedAd = foundAd.toJSON();
+  return {
+    ...parsedAd,
+    date: parsedAd._id.getTimestamp()
+  };
 }
 
 async function createAd(newAd) {

@@ -11,8 +11,8 @@ const {
  */
 async function loginUser(req, res) {
   try {
-    const token = await login(req.body.email, req.body.password);
-    res.send({ token });
+    const response = await login(req.body.email, req.body.password);
+    res.send(response);
   } catch (error) {
     if (error instanceof UserNotFoundError) {
       return res.status(404).send({ error: error.message });

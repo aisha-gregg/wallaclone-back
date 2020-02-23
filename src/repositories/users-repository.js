@@ -21,7 +21,7 @@ async function login(email, password) {
   }
 
   const token = jwt.sign({ _id: foundUser._id }, process.env.JWT_KEY);
-  return token;
+  return { token, id: foundUser._id };
 }
 
 /**

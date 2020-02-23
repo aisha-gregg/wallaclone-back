@@ -27,6 +27,7 @@ async function getAds(req, res) {
   const name = query.name;
   res.send(await findAll({ tags, minPrice, maxPrice, name }));
 }
+
 /**
  * @param {string|undefined} price
  */

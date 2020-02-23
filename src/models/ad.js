@@ -10,5 +10,12 @@ const adSchema = new mongoose.Schema({
   userId: { type: String },
   isSold: { type: Boolean }
 });
+adSchema.set("toObject", { virtuals: true });
+adSchema.set("toJSON", { virtuals: true });
 adSchema.index({ name: "text" });
+adSchema.virtual("url").get(function() {
+  return `${encodeURIComponent(
+    this.name.replace(/ /g, "-").toLowerCase()
+  )}-${this._id}`;
+});
 mongoose.model("ad", adSchema);
